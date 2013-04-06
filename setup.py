@@ -134,10 +134,6 @@ packages.extend(["sans.dataloader","sans.dataloader.readers"])
 # sans.calculator
 package_dir["sans.calculator"] = "sanscalculator/src/sans/calculator"
 packages.extend(["sans.calculator"])
-
-# sans.corfunc
-package_dir["sans.corfunc"] = "corfunc/src/sans/corfunc"
-packages.extend(["sans.corfunc"])
     
 # sans.pr
 numpy_incl_path = os.path.join(NUMPY_INC, "numpy")
@@ -191,14 +187,7 @@ package_dir["sans.perspectives"] = "calculatorview/src/sans/perspectives"
 package_dir["sans.perspectives.calculator"] = os.path.join("calculatorview", 
                                 "src", "sans", "perspectives", "calculator")
 package_data['sans.perspectives.calculator'] = ['images/*', 'media/*']
-packages.extend(["sans.perspectives", "sans.perspectives.calculator"])
-     
-# Calculator view
-package_dir["sans.perspectives"] = "corfuncview/src/sans/perspectives"
-package_dir["sans.perspectives.corfunc"] = os.path.join("corfuncview", 
-                                "src", "sans", "perspectives", "corfunc")
-package_data['sans.perspectives.corfunc'] = ['images/*', 'media/*']
-packages.extend(["sans.perspectives", "sans.perspectives.corfunc"])     
+packages.extend(["sans.perspectives", "sans.perspectives.calculator"])    
      
 # Data util
 package_dir["data_util"] = "sansutil"
@@ -227,6 +216,7 @@ ext_modules.append( Extension("park._modeling",
 # Sans models
 includedir  = os.path.join("sansmodels", "include")
 igordir = os.path.join("sansmodels", "src", "libigor")
+cephes_dir = os.path.join("sansmodels", "src", "cephes")
 c_model_dir = os.path.join("sansmodels", "src", "c_models")
 smear_dir  = os.path.join("sansmodels", "src", "c_smearer")
 gen_dir  = os.path.join("sansmodels", "src", "c_gen")
@@ -300,7 +290,7 @@ if os.name=='nt':
 ext_modules.extend( [ Extension("sans.models.sans_extension.c_models",
                                 sources=model_sources,                 
                                 include_dirs=[igordir, includedir, 
-                                              c_model_dir, numpy_incl_path],
+                                              c_model_dir, numpy_incl_path, cephes_dir],
                                 ),       
                     # Smearer extension
                     Extension("sans.models.sans_extension.smearer",

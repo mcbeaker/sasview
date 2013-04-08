@@ -66,3 +66,28 @@ class Plugin(PluginBase):
        
         # Log startup
         logging.info("Corfunc plug-in started")
+
+    def help(self, evt):
+        """
+        Show a general help dialog. 
+        """
+        logging.info("CorFunc help menu item was activated")
+
+    def get_panels(self, parent):
+        from dummy_panel import DummyPanel
+
+        self.parent = parent
+        self.panel = DummyPanel(parent, -1, 
+                                style=wx.RAISED_BORDER)
+        
+        self.perspective = []
+        self.perspective.append(self.panel.window_name)
+        
+        return [self.panel]
+    
+    def get_context_menu(self, plotpanel=None):
+        return ["CorFunc", "CorFunc plugin test", self._do_something]
+    
+    def _do_something(self, event):
+        logging.info("CorFunc context menu worked")
+        
